@@ -11,7 +11,7 @@ var merge        = require('merge-stream');
 var fileinclude  = require('gulp-file-include');
 var autoprefixer = require('gulp-autoprefixer');
 var rename       = require('gulp-rename');
-var distPath     = '../../template';
+var distPath     = '.vercel/output/static';
 var template     = 'one-page-parallax';
 var file         = 'one_page_parallax';
 
@@ -120,6 +120,37 @@ gulp.task('fileinclude', function() {
     .pipe(gulp.dest(distPath + '/template_'+ file +''))
     .pipe(livereload());
 });
+
+gulp.task('copy-html', function() {
+  var replace = require('gulp-replace');
+  return gulp.src(['./html/*.html'])
+    .pipe(replace('../assets/', 'assets/'))
+    .pipe(gulp.dest(distPath));
+});
+
+gulp.task('create-config', function(done) {
+  var fs = require('fs');
+  var path = require('path');
+  var configPath = path.join(__dirname, '.vercel', 'output', 'config.json');
+  var configDir = path.dirname(configPath);
+  
+  if (!fs.existsSync(configDir)) {
+    fs.mkdirSync(configDir, { recursive: true });
+  }
+  
+  fs.writeFileSync(configPath, JSON.stringify({ version: 3 }, null, 2));
+  done();
+});
+
+gulp.task('build', gulp.series(gulp.parallel([
+	'font-fontawesome', 
+	'font-bootstrap', 
+	'css-vendor', 
+	'css-app', 
+	'js-vendor', 
+	'js-app',
+	'copy-html'
+]), 'create-config'));
 
 gulp.task('webserver', function() {
   connect.server({
