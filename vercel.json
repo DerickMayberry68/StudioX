@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "studiox",
+  "buildCommand": "cd Admin && npm install && npm run build",
+  "outputDirectory": "Admin/dist",
+  "framework": "angular",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+
