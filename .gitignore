@@ -11,6 +11,9 @@ dist/
 build/
 public/
 
+# Vercel
+.vercel/
+
 # Environment
 .env
 .env.local

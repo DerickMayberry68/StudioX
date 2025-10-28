@@ -2,22 +2,23 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-// Create directory structure
-const publicDir = path.join(__dirname, 'public');
-const assetsDir = path.join(publicDir, 'assets');
+// Create directory structure for Vercel Build Output API
+const outputDir = path.join(__dirname, '.vercel', 'output', 'static');
+const assetsDir = path.join(outputDir, 'assets');
 const cssDir = path.join(assetsDir, 'css', 'one-page-parallax');
 const jsDir = path.join(assetsDir, 'js', 'one-page-parallax');
 
 // Clean and create directories
-if (fs.existsSync(publicDir)) {
-  fs.rmSync(publicDir, { recursive: true, force: true });
+const vercelDir = path.join(__dirname, '.vercel');
+if (fs.existsSync(vercelDir)) {
+  fs.rmSync(vercelDir, { recursive: true, force: true });
 }
 fs.mkdirSync(cssDir, { recursive: true });
 fs.mkdirSync(jsDir, { recursive: true });
 
 console.log('Building CSS with Sass...');
 // Build app CSS
-execSync('npx sass scss/styles.scss public/assets/css/one-page-parallax/app.min.css --style=compressed --no-source-map', { stdio: 'inherit' });
+execSync(`npx sass scss/styles.scss ${path.join(cssDir, 'app.min.css')} --style=compressed --no-source-map`, { stdio: 'inherit' });
 
 console.log('Creating vendor CSS bundle...');
 // Concatenate vendor CSS files
@@ -79,9 +80,19 @@ htmlFiles.forEach(file => {
     let content = fs.readFileSync(srcPath, 'utf8');
     // Fix asset paths from ../assets to assets
     content = content.replace(/\.\.\/assets\//g, 'assets/');
-    fs.writeFileSync(path.join(publicDir, file), content);
+    fs.writeFileSync(path.join(outputDir, file), content);
   }
 });
 
-console.log('Build complete! Output in public/ directory');
+console.log('Creating Vercel config...');
+// Create config.json for Vercel Build Output API
+const configJson = {
+  version: 3
+};
+fs.writeFileSync(
+  path.join(__dirname, '.vercel', 'output', 'config.json'),
+  JSON.stringify(configJson, null, 2)
+);
+
+console.log('Build complete! Output in .vercel/output/static/ directory');
 
