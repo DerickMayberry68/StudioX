@@ -1,9 +1,21 @@
-node_modules/
-.env
-dist/
 *.log
 
-# Angular 
+# Angular
 .angular/
 Admin/.angular/
 Admin/.angular/cache/
+
+# Node.js
+node_modules/
+dist/
+build/
+
+# Environment
+.env
+.env.local
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
