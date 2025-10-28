@@ -1,0 +1,76 @@
+# Cursor Rules for Angular Standalone Application
+
+## Angular Standalone Components
+
+- Always use standalone: true for new components
+- Import CommonModule in all standalone components
+- Import RouterModule when using router-outlet
+- Import specific modules only when needed (NgScrollbarModule, etc.)
+- Use provideRouter, provideAnimations, provideHttpClient in app.config.ts
+
+## Default Component Structure
+
+When creating new components, use this default HTML structure:
+
+```html
+<!-- begin breadcrumb -->
+<ol class="breadcrumb float-xl-end">
+  <li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
+  <li class="breadcrumb-item"><a href="javascript:;">Library</a></li>
+  <li class="breadcrumb-item active"><a href="javascript:;">Data</a></li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+<h1 class="page-header">Page Header <small>header small text goes here...</small></h1>
+<!-- end page-header -->
+
+<!-- begin panel -->
+<panel title="Panel Title here">
+  Panel Content Here
+</panel>
+<!-- end panel -->
+```
+
+- Always include breadcrumb navigation at the top
+- Use page-header with h1 and small text for page titles
+- Wrap main content in panel component with appropriate title
+- Follow the exact HTML structure and comments as shown above
+
+## Panel HTML Patterns (@panel-html.mdc)
+
+- Use semantic HTML structure for panels
+- Include proper ARIA attributes for accessibility
+- Use Bootstrap classes for styling (panel, card, etc.)
+- Follow consistent naming conventions for panel components
+- Include proper TypeScript interfaces for panel inputs/outputs
+
+## Component Structure
+
+- Place components in src/app/components/
+- Place pages in src/app/pages/
+- Use kebab-case for file names
+- Use PascalCase for component class names
+- Include proper imports in standalone components
+
+## Styling Guidelines
+
+- Use SCSS for styling
+- Follow BEM methodology for CSS classes
+- Use CSS custom properties for theming
+- Maintain responsive design principles
+
+## Code Quality
+
+- Use TypeScript strict mode
+- Include proper error handling
+- Follow Angular style guide
+- Use proper dependency injection
+- Implement proper lifecycle hooks
+
+## File Organization
+
+- Keep components focused and single-purpose
+- Use barrel exports for clean imports
+- Organize services in src/app/service/
+- Maintain clear separation of concerns 
