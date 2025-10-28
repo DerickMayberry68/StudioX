@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "name": "studiox-admin",
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "dist",
+  "framework": "angular",
+  "installCommand": "npm install",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+
