@@ -1,13 +1,16 @@
 {
   "version": 2,
   "name": "studiox-marketing",
-  "buildCommand": "npm install && npx gulp font-fontawesome && npx gulp font-bootstrap && npx gulp css-vendor && npx gulp css-app && npx gulp js-vendor && npx gulp js-app && npx gulp plugins && npx gulp fileinclude",
-  "outputDirectory": "../../template/template_one_page_parallax",
+  "buildCommand": "node build.js",
+  "outputDirectory": "public",
   "installCommand": "npm install",
   "routes": [
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/index.html"
     }
   ]
 }
