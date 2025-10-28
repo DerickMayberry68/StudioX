@@ -1,9 +1,14 @@
 {
   "version": 2,
-  "name": "studiox-marketing",
-  "buildCommand": "node build.js",
-  "outputDirectory": "public",
-  "installCommand": "npm install",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "public"
+      }
+    }
+  ],
   "routes": [
     {
       "handle": "filesystem"
