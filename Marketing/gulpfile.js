@@ -133,6 +133,11 @@ gulp.task('copy-images', function() {
     .pipe(gulp.dest(distPath + '/assets/img/'));
 });
 
+gulp.task('copy-css', function() {
+  return gulp.src(['./assets/css/**/*'])
+    .pipe(gulp.dest(distPath + '/assets/css/'));
+});
+
 gulp.task('create-config', function(done) {
   var fs = require('fs');
   var path = require('path');
@@ -155,7 +160,8 @@ gulp.task('build', gulp.series(gulp.parallel([
 	'js-vendor', 
 	'js-app',
 	'copy-html',
-	'copy-images'
+	'copy-images',
+	'copy-css'
 ]), 'create-config'));
 
 gulp.task('webserver', function() {
