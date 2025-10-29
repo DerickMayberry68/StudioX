@@ -129,20 +129,8 @@ gulp.task('copy-html', function() {
 });
 
 gulp.task('copy-images', function() {
-  var fs = require('fs');
-  var adminImgPath = '../Admin/src/assets/img';
-  
-  // Copy images from Admin if they exist
-  if (fs.existsSync(adminImgPath)) {
-    return gulp.src([adminImgPath + '/**/*'])
-      .pipe(gulp.dest(distPath + '/assets/img/'));
-  }
-  
-  // Return empty stream if no images
-  var stream = require('stream');
-  var emptyStream = new stream.Readable();
-  emptyStream.push(null);
-  return emptyStream;
+  return gulp.src(['./assets/img/**/*'])
+    .pipe(gulp.dest(distPath + '/assets/img/'));
 });
 
 gulp.task('create-config', function(done) {
