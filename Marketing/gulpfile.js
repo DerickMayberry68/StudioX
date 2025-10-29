@@ -128,6 +128,23 @@ gulp.task('copy-html', function() {
     .pipe(gulp.dest(distPath));
 });
 
+gulp.task('copy-images', function() {
+  var fs = require('fs');
+  var adminImgPath = '../Admin/src/assets/img';
+  
+  // Copy images from Admin if they exist
+  if (fs.existsSync(adminImgPath)) {
+    return gulp.src([adminImgPath + '/**/*'])
+      .pipe(gulp.dest(distPath + '/assets/img/'));
+  }
+  
+  // Return empty stream if no images
+  var stream = require('stream');
+  var emptyStream = new stream.Readable();
+  emptyStream.push(null);
+  return emptyStream;
+});
+
 gulp.task('create-config', function(done) {
   var fs = require('fs');
   var path = require('path');
@@ -149,7 +166,8 @@ gulp.task('build', gulp.series(gulp.parallel([
 	'css-app', 
 	'js-vendor', 
 	'js-app',
-	'copy-html'
+	'copy-html',
+	'copy-images'
 ]), 'create-config'));
 
 gulp.task('webserver', function() {
